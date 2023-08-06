@@ -1,0 +1,44 @@
+---
+title: "01_variant_analysis"
+author: "Andrew B. Kleist"
+date: "2023-08-03"
+output: html_document
+---
+
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+
+### *Italic*
+### **Bold**
+### ***Bold Italic***
+
+1. List item 1
+2. List item 2
+
+- bullet 1
+- bullet 2
+
+* bullet 1
+* bullet 2
+
+You can also add links, [here is link to my website](https://www.nhl.com)
+
+Hi there. 
+
+```{r}
+# This is the start of my code
+answer <- 2+4
+answer
+my_data <- cars
+my_data
+```
+
+This is how you use `plot()` function
+
+```{r}
+plot(my_data$speed ~ my_data$dist)
+```
+
+
