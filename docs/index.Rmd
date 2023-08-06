@@ -12,10 +12,13 @@ library(tidyverse)
 library(plotly)
 ```
 
+Variant-specific functional deficits {data-icon="fa-signal"}
+===================================== 
+
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Variant-specific CFTR folding versus conductance deficits
 
 ```{r}
 data <- read_csv("bihler_2023_clean.csv")
@@ -50,3 +53,6 @@ Column {data-width=350}
 
 ```
 
+
+Variant-specific modulator responses {data-icon="fa-solid fa-tablets"}
+===================================== 
