@@ -82,6 +82,9 @@ data <- data %>%
 data <- data %>%
   mutate(iva_vs_elxtez = log2(fsk_plus_iva_pct_wt_DMSO/fsk_pct_wt_ELXTEZ) )
 
+# write csv
+write_csv(data, "data/variant/raw/bihler_2023_clean.csv")
+write_csv(data, "docs/bihler_2023_clean.csv")
 
 # (2) PLOTS --------------------------------------------------------------------
 # PLOT 1: FOLDING VS CONDUCTANCE SCATTER PLOT
