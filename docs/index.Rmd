@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "CFTR variant explorer"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
