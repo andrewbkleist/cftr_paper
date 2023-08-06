@@ -23,7 +23,7 @@ Column {data-width=350}
 ### Variant-specific CFTR folding versus conductance deficits
 
 ```{r}
-data <- read_csv("bihler_2023_clean.csv")
+data <- read_csv("docs/bihler_2023_clean.csv")
 # PLOT 1: FOLDING VS CONDUCTANCE SCATTER PLOT
 # Folding ("band_c_pct_wt_DMSO") vs. conductance ("fsk_pct_wt_DMSO") among
 # missense and indels (in-frame) disease-causing variants
