@@ -58,16 +58,14 @@ data$ord <- as.numeric(data$ord)
 data <- data %>% unite(variant2, c(variant,rownum), sep = ".", remove = FALSE)
 data$variant2 <- factor(data$variant2, levels = data$variant2[order(data$ord)])
 
-# order by resno
+# order by variant
 p <- data %>%
-    filter(!(is.na(trikafta_response))) %>%
-  ggplot(aes(fill = trikafta_response, text  = variant)) +
-  geom_bar(aes(resno, fsk_pct_wt_DMSO), stat = "identity") +
-  geom_bar(aes(resno, (band_c_pct_wt_DMSO)*(-1)), stat = "identity") +
+  ggplot(aes(fill = trikafta_response, color = trikafta_response, text  = variant)) +
+  geom_segment(aes(x=variant2, xend=variant2, y=fsk_pct_wt_DMSO, yend=band_c_pct_wt_DMSO)) +
+  geom_point( aes(x=variant2, y=fsk_pct_wt_DMSO), size=1 ) +
+  geom_point( aes(x=variant2, y=band_c_pct_wt_DMSO), size=1) +
+  scale_color_manual(values=c("red4", "grey70")) +
   scale_fill_manual(values=c("red4", "grey70")) +
-  geom_hline(yintercept = c(0)) +
-  geom_hline(yintercept = c(10), linetype=2) +
-  geom_hline(yintercept = c(-10), linetype=2) +
   theme_minimal()
 ggplotly(p)
 
