@@ -1,0 +1,53 @@
+README
+================
+andrewbkleist
+2023-08-07
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+#### **Description of ~/code/01_variant_analysis**
+
+Code in this folder imports and analyzes data from Bihler, et al., 2023
+(Biorxiv;
+<https://www.biorxiv.org/content/10.1101/2023.07.07.548159v1>). Note
+that the downloadable data is in .xlsx format (see
+~/data/variant/bihler_2023.xlsx), so manually changed column headers to
+include underscores while preserving general nomenclature and formatting
+for ease of use in R (saved as ~/data/variant/bihler_2023.csv). Made
+additional modifications as follows: (1) Some variant descriptions in
+“hgvs_protein” were blank, so manually entered these based on “variant”
+column; (2) changed multiple residue indels to have “variant_type”
+“In-frame in/del_multires”, while leaving single residue indels as
+“In-frame in/del”. File ~/data/variant/bihler_2023_mod.csv saved with
+these changes.
+
+#### **Columns used for analysis**
+
+The data presented in Bihler, et al. 2023 produce numerous columns via
+different ways of analyzing raw conductance (short circuit) and folding
+(western blot) data. In some cases, multiple columns encompass the same
+parameter (e.g. “band_c_pct_wt_DMSO” and “c_b_ratio_pct_wt” both present
+percent band C of variant to that of WT CFTR, but only the latter takes
+the band C / band B ratio into account). The following lists the
+parameter and the column selected to represent that parameter here: -
+Baseline variant conductance = “fsk_pct_wt_DMSO” - Baseline variant
+folding = “band_c_pct_wt_DMSO” (chosen empirically based on F508del
+values that would give less than 10% WT); note that there are multiple
+instances of F508del, only one of which is less than 10% WT whereas
+others are slightly above. - Ivacaftor response =
+“fsk_plus_iva_pct_wt_DMSO” - Elexa/Teza response = “fsk_pct_wt_ELXTEZ” -
+Trikafta response = “fsk_plus_iva_pct_wt_ELXTEZ”
+
+#### **Caveats to data analysis here**
+
+One way to classify disease causing variants using functional data is to
+name variants with \<10% WT function disease causing and variants with
+≥10% WT function non-disease causing. Likewise, Trikafta-responsive and
+refractory variants can be classified by naming variants with functional
+response ≥10% WT function in the presence of modulators “responsive” and
+those with functional response \<10% WT “refractory”. As discussed in
+Bihler, et al. 2023, using hard cutoffs can be problematic and misses
+the potential impact of modulators on borderline cases. While we
+acknoeldge these limitations, we choose to use ≥/\<10% WT function for
+both conductance and folding deficits and drug responsiveness here in
+order to extract generalized features of the data.

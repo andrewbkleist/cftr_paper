@@ -4,6 +4,9 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    theme: 
+      version: 4
+      bootswatch: litera
 ---
 
 ```{r setup, include=FALSE}
@@ -15,9 +18,6 @@ library(plotly)
 Variant-specific functional deficits {data-icon="fa-signal"}
 ===================================== 
 
-Column {data-width=350}
------------------------------------------------------------------------
-
 ## Variant-specific CFTR folding versus conductance deficits dotplot
 
 ```{r}
@@ -25,6 +25,7 @@ data <- read_csv("bihler_2023_clean.csv")
 q <- data %>%
   # filter(variant %in% c("WT-ctrl", "G551D-ctrl", "G551D", "F508del","F508del-ctrl", "I507del")) %>%
   # filter( (band_c_pct_wt_DMSO < 10) | (fsk_pct_wt_DMSO < 10)) %>%
+    filter(!(is.na(trikafta_response))) %>%
   ggplot(aes(band_c_pct_wt_DMSO, fsk_pct_wt_DMSO, fill = trikafta_response, text  = variant)) +
   geom_point(shape = 21, colour = "black", size = 5, stroke = 0.5) +
   scale_fill_manual(values=c("red4", "grey70")) +
@@ -32,6 +33,9 @@ q <- data %>%
   # ylim(0,20) + 
   geom_vline(xintercept = c(10), linetype=2) +
   geom_hline(yintercept = c(10), linetype=2) +
+  labs(y = "conductance (mean, % WT)", x = "folding (mean, % WT)") +
+  ggtitle("Variant-specific CFTR folding and conductance") +
+
   theme_minimal()
 ggplotly(q)
 ```
@@ -40,7 +44,7 @@ ggplotly(q)
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-## Variant-specific CFTR folding versus conductance deficits by residue
+### Variant-specific CFTR folding versus conductance deficits by residue
 
 ```{r}
 
@@ -56,6 +60,7 @@ data$variant2 <- factor(data$variant2, levels = data$variant2[order(data$ord)])
 
 # order by resno
 p <- data %>%
+    filter(!(is.na(trikafta_response))) %>%
   ggplot(aes(fill = trikafta_response, text  = variant)) +
   geom_bar(aes(resno, fsk_pct_wt_DMSO), stat = "identity") +
   geom_bar(aes(resno, (band_c_pct_wt_DMSO)*(-1)), stat = "identity") +
@@ -68,7 +73,7 @@ ggplotly(p)
 
 ```
 
-## Variant-specific CFTR folding versus conductance deficits by mean functional deficit
+### Variant-specific CFTR folding versus conductance deficits by mean functional deficit
 
 ```{r}
 data <- read_csv("bihler_2023_clean.csv")
@@ -84,6 +89,7 @@ data$variant2 <- factor(data$variant2, levels = data$variant2[order(data$ord)])
 
 # order by mean fold/conductance
 q <- data %>%
+    filter(!(is.na(trikafta_response))) %>%
   ggplot(aes(fill = trikafta_response, text  = variant)) +
   geom_bar(aes(variant2, fsk_pct_wt_DMSO), stat = "identity") +
   geom_bar(aes(variant2, (band_c_pct_wt_DMSO)*(-1)), stat = "identity") +
@@ -110,7 +116,9 @@ data <- read_csv("bihler_2023_clean.csv")
 
 t <- data %>%
   # filter(variant %in% c("WT-ctrl", "G551D-ctrl", "G551D", "F508del","F508del-ctrl", "I507del")) %>%
+  filter(!(is.na(trikafta_response))) %>%
   filter( (band_c_pct_wt_DMSO < 10) | (fsk_pct_wt_DMSO < 10)) %>%
+    filter(!(is.na(trikafta_response))) %>%
   ggplot(aes(fsk_pct_wt_ELXTEZ, fsk_plus_iva_pct_wt_DMSO, fill = trikafta_response, text  = variant)) +
   geom_point(shape = 21, colour = "black", size = 5, stroke = 0.5) +
   scale_fill_manual(values=c("red4", "grey70")) +
@@ -140,6 +148,7 @@ data$variant2 <- factor(data$variant2, levels = data$variant2[order(data$ord)])
 
 # order by resno
 r <- data %>%
+    filter(!(is.na(trikafta_response))) %>%
   ggplot(aes(fill = trikafta_response, text  = variant)) +
   geom_bar(aes(resno, fsk_plus_iva_pct_wt_DMSO), stat = "identity") +
   geom_bar(aes(resno, (fsk_pct_wt_ELXTEZ)*(-1)), stat = "identity") +
@@ -164,6 +173,7 @@ data <- data %>% unite(variant2, c(variant,rownum), sep = ".", remove = FALSE)
 data$variant2 <- factor(data$variant2, levels = data$variant2[order(data$ord)])
 
 s <- data %>%
+    filter(!(is.na(trikafta_response))) %>%
   ggplot(aes(fill = trikafta_response, text  = variant)) +
   geom_bar(aes(variant2, fsk_plus_iva_pct_wt_DMSO), stat = "identity") +
   geom_bar(aes(variant2, (fsk_pct_wt_ELXTEZ)*(-1)), stat = "identity") +
